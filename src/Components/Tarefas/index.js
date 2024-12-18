@@ -3,13 +3,14 @@ import { View, Text, StyleSheet ,TouchableOpacity} from 'react-native';
 import { Feather } from '@expo/vector-icons'
 import { useState } from 'react';
 
-export default function Tarefas({data}) {
+export default function Tarefas({data,onDelete}) {
 
   const[concluida, setConcluida] = useState(false);
 
   const alternarTarefa = () => {
     setConcluida(!concluida);
   };
+  
 
  return (
     <View style={styles.content}>
@@ -25,17 +26,22 @@ export default function Tarefas({data}) {
         {data.label}
         </Text>
 
+    
+    <View style={styles.elementos}>
     <TouchableOpacity style={styles.info}>
       <Feather name = "info" size={24} color={"#000"}/>
     </TouchableOpacity>
+    <TouchableOpacity styles={styles.lixo} onPress={() => onDelete(data.id)}>
+      <Feather name = "trash" size ={24} color={"#000"}/>
+    </TouchableOpacity>
+    </View>
     </View>
  )
 }
 
 const styles = StyleSheet.create({
     container:{
-      flex:1,
-      marginBottom:24,
+      marginBottom:0,
       borderBottomWidth:2,
       borderBottomColor:'#808080'
 
@@ -62,7 +68,14 @@ const styles = StyleSheet.create({
       textDecorationLine: 'line-through',
       color: '#808080',
     },
+    elementos:{
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+    },
     info: {
-      marginLeft: 10,
+      
+    },
+    lixo: {
+      
     }
 })

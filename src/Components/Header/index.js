@@ -1,11 +1,11 @@
 import { setStatusBarBackgroundColor } from 'expo-status-bar'
 import React from 'react'
-import { StyleSheet, Text, View, StatusBar, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, StatusBar, TouchableOpacity,Button } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
-const StatusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight+22: 100;
+const StatusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight+22: 60;
 
-export default function Header({ name }) {
+export default function Header({ name}) {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -13,9 +13,6 @@ export default function Header({ name }) {
                     <Feather name="user" size ={27} color={"#000000"}/>
                 </TouchableOpacity>
                 <Text style={styles.username}>{name}</Text>
-                <TouchableOpacity style={styles.plus}>
-                    <Feather name = "plus" size={50} color={"#fff"}/>
-                </TouchableOpacity>
             </View>
         </View>
     )
@@ -28,7 +25,7 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         paddingStart:16,
         paddingEnd: 16,
-        paddingBottom:44,
+        paddingBottom:20,
     },
     content:{
         flex: 1,
