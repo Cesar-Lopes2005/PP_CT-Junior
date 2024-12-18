@@ -1,25 +1,32 @@
 import React from 'react';
 import { View, StyleSheet,Text,TextInput,TouchableOpacity ,KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
-export default function BoxNovaTarefa({ onSalvarTarefa }) {
-    const [tarefa, setTarefa] = useState('');
-    const [data, setData] = useState('');
-    const [detalhe, setDetalhe] = useState('');
+export default function BoxNovaTarefa({ onSalvarTarefa, tarefaInicial }) {
+    const [tarefa, setTarefa] = useState(tarefaInicial?.label || '');
+    const [detalhe, setDetalhe] = useState(tarefaInicial?.info || '');
+    
+    useEffect(() => {
+      if (tarefaInicial) {
+        setTarefa(tarefaInicial.label);
+        setDetalhe(tarefaInicial.info);
+      }
+    }, [tarefaInicial]);
 
     const salvarTarefa = () => {
-        if (tarefa && data && detalhe) {
-            onSalvarTarefa({ label: tarefa, data: data, info:detalhe });
-            setTarefa('');
-            setData('');
-            setDetalhe('');
+        if (tarefa && detalhe) {
+          onSalvarTarefa({ label: tarefa, info: detalhe });
+          setTarefa('');
+          setDetalhe('');
         } else {
-            alert('Por favor, preencha todos os campos!');
+          alert('Por favor, preencha todos os campos!');
         }
-    };
- 
+      };
+      
+
+      
  
  
     return (
@@ -37,18 +44,6 @@ export default function BoxNovaTarefa({ onSalvarTarefa }) {
             placeholder="Escreva aqui"
             value={tarefa}
             onChangeText={setTarefa }
-            />
-
-            <Text style={styles.label}>Digite a data de Entrega:</Text>
-            <TextInputMask
-            type={'datetime'}
-            optinons ={{
-                format:'DD/MM/YYY',
-            }}
-            value={data}
-            onChangeText={setData}
-            style={styles.data}
-            placeholder="__/__/____"
             />
 
             <Text style={styles.label}>Digite os detalhes:</Text>
@@ -98,16 +93,6 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     tarefa: {
-        height: 40,
-        width: 300,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingHorizontal: 10,
-        marginBottom: 5,
-        backgroundColor: '#fff',
-    },
-    data:{
         height: 40,
         width: 300,
         borderColor: '#ccc',
