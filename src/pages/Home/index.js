@@ -4,7 +4,7 @@ import Tarefas from '../../Components/Tarefas';
 import BoxNovaTarefa from '../../Components/BoxNovaTarefa';
 import { useState } from 'react';
 
-export default function Home() {
+export default function Home({navigation}) {
   const [list, setList, setTarefas] = useState([
     {
       id: 1,
@@ -40,7 +40,7 @@ export default function Home() {
     <KeyboardAvoidingView
     style={styles.container}
     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Header name="cesar_lopes" />
+      <Header name="cesar_lopes" navigation={navigation}/>
 
       <Text style={styles.titulo}>Tarefas</Text>
 
