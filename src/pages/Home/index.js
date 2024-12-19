@@ -4,7 +4,9 @@ import Tarefas from '../../Components/Tarefas';
 import BoxNovaTarefa from '../../Components/BoxNovaTarefa';
 import { useState } from 'react';
 
-export default function Home({navigation}) {
+export default function Home({route, navigation}) {
+  const { usuario } = route.params || {}
+  
   const [list, setList] = useState([
     {
       id: 1,
@@ -65,9 +67,10 @@ export default function Home({navigation}) {
 
   return (
     <KeyboardAvoidingView
-    style={styles.container}
-    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Header name="cesar_lopes" navigation={navigation}/>
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <Header name={usuario || 'Usuário'} navigation={navigation}/>
 
       <Text style={styles.titulo}>Tarefas</Text>
       <View style={styles.contadores}>
@@ -125,7 +128,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   contadorText: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: 'bold',
   },
 });

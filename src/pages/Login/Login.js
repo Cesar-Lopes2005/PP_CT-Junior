@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, Button, StyleSheet, TextInput } from 'react-native';
 
 export default function Login({ navigation }) {
+  const [usuario, setUsuario] = useState('');
+ 
   return (  
     <View style={styles.container}>
       <View style={styles.square}>
@@ -9,7 +11,8 @@ export default function Login({ navigation }) {
         <TextInput 
           placeholder="Escreva Aqui" 
           style={styles.input} 
-          
+          value={usuario}
+          onChangeText={setUsuario}
         />
         <Text style={styles.label}>Senha:</Text>
         <TextInput 
@@ -19,7 +22,7 @@ export default function Login({ navigation }) {
         />
         <Button 
           title="Entrar" 
-          onPress={() => navigation.goBack()} 
+          onPress={() => navigation.navigate('TO DO LIST', {usuario} )} 
         />
       </View>
     </View>
