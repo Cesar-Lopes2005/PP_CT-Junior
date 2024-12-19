@@ -14,12 +14,7 @@ export default function Login({ navigation }) {
           value={usuario}
           onChangeText={setUsuario}
         />
-        <Text style={styles.label}>Senha:</Text>
-        <TextInput 
-          placeholder="Escreva Aqui" 
-          secureTextEntry 
-          style={styles.input} 
-        />
+        
         <Button 
           title="Entrar" 
           onPress={() => navigation.navigate('TO DO LIST', {usuario} )} 
