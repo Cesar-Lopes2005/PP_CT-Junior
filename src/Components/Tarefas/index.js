@@ -3,39 +3,50 @@ import { View, Text, StyleSheet ,TouchableOpacity} from 'react-native';
 import { Feather } from '@expo/vector-icons'
 import { useState } from 'react';
 
-export default function Tarefas({data}) {
+export default function Tarefas({data,onDelete,onInfo, onAlternar}) {
 
-  const[concluida, setConcluida] = useState(false);
+  const [concluida, setConcluida] = useState(data.concluida);
 
-  const alternarTarefa = () => {
+  const alternarTarefa = () => { 
     setConcluida(!concluida);
-  };
+    onAlternar(data.id);
+  }
+  
+
+  
 
  return (
     <View style={styles.content}>
-    <TouchableOpacity style={styles.square} onPress={alternarTarefa}>
-      <Feather 
-      name = { concluida ? "check-square": "square"} 
-      size={24} 
-      color={concluida ? "00A00" : "#000"}
-      />
-    </TouchableOpacity>
+      <TouchableOpacity style={styles.square} onPress={alternarTarefa} >
+        <Feather 
+        name = { concluida ? "check-square": "square"} 
+        size={24} 
+        color={concluida ? "00A00" : "#000"}
+        />
+      </TouchableOpacity>
     
       <Text style={[styles.label, concluida && styles.labelConcluida]}>
         {data.label}
-        </Text>
+      </Text>
 
-    <TouchableOpacity style={styles.info}>
-      <Feather name = "info" size={24} color={"#000"}/>
-    </TouchableOpacity>
+    
+    <View style={styles.elementos}>
+      
+      <TouchableOpacity style={styles.info} onPress={() => onInfo(data)}>
+        <Feather name="info" size={24} color={"#000"} />
+      </TouchableOpacity>
+      
+      <TouchableOpacity styles={styles.lixo} onPress={() => onDelete(data.id)}>
+        <Feather name = "trash" size ={24} color={"#000"}/>
+      </TouchableOpacity>
+    
     </View>
- )
-}
+    </View>
+ )}
 
 const styles = StyleSheet.create({
     container:{
-      flex:1,
-      marginBottom:24,
+      marginBottom:0,
       borderBottomWidth:2,
       borderBottomColor:'#808080'
 
@@ -62,7 +73,14 @@ const styles = StyleSheet.create({
       textDecorationLine: 'line-through',
       color: '#808080',
     },
+    elementos:{
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+    },
     info: {
-      marginLeft: 10,
-    }
+      marginHorizontal:15
+    },
+    lixo: {
+      
+    },
 })
